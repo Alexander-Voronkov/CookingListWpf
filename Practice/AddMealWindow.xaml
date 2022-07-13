@@ -1,0 +1,34 @@
+﻿<Window x:Class="Practice.AddMealWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice"
+        mc:Ignorable="d"
+        Title="AddMealWindow" Height="300" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <Label Content="Name of meal:" />
+            <Label Content="Cooking duration:"/>
+            <Label Content="Meal count:" Grid.Column="0"/>
+            <Label Content="Image source:" Grid.Column="0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <TextBox x:Name="nameofmealtextbox" Grid.Column="1" Margin="5" Text="{Binding NameOfMeal, Mode=TwoWay}"/>
+            <TextBox x:Name="durationtextbox"  Grid.Column="1" Margin="5" Text="{Binding Duration, Mode=TwoWay}"/>
+            <TextBox x:Name="counttextbox"  Grid.Column="1" Margin="5" Text="{Binding Count, Mode=TwoWay}"/>
+            <Button Grid.Column="1" Content="Set source" Margin="5" Click="Button_Click_2"/>
+        </StackPanel>
+        <Button Grid.Column="0" Margin="5" Content="Add" Grid.Row="1" Click="Button_Click_1" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>

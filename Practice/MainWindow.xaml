@@ -1,0 +1,111 @@
+﻿<Window x:Class="Practice.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice"
+        mc:Ignorable="d"
+        Title="MealList" Height="300" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="MealListProvider" ObjectType="{x:Type local:MealList}" MethodName="Get"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="1" Width="10" HorizontalAlignment="Stretch" ResizeDirection="Auto" />
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Meals" HorizontalAlignment="Center" FontFamily="Arial" FontSize="30" Grid.Row="0"/>
+            <ListBox x:Name="MealListView" Grid.Row="1" ItemsSource="{Binding Source={StaticResource MealListProvider}}" DisplayMemberPath="NameOfMeal"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Content="Add new meal" Grid.Row="0" Margin="5 2 5 2" Click="Button_Click_1"/>
+                <Button Content="Delete chosen" Grid.Row="1" Margin="5 2 5 2" Click="Button_Click"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="TextBox">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="10"/>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="Label">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="10"/>
+                    </Style.Setters>
+                </Style>
+            </Grid.Resources>
+                
+                <Label Content="Brief guide" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" FontFamily="Arial" FontSize="30"/>
+            <Image MouseLeftButtonDown="Image_Click" Margin="3" Grid.Column="2" Grid.Row="1" Source="{Binding ElementName=MealListView,Path=SelectedItem.ImageSource}"/>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=MealListView, Path=SelectedIndex}" Value="-1">
+                                <DataTrigger.Setters>
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Style.Setters>
+                            <Setter Property="Margin" Value="10"/>
+                        </Style.Setters>
+                    </Style>
+                </Grid.Resources>
+
+                <Label Content="Name of meal:" Grid.Row="0" Grid.Column="0"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=MealListView,Path=SelectedItem.NameOfMeal}"/>
+
+
+                <Label Content="Cooking duration:" Grid.Row="1" Grid.Column="0"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=MealListView,Path=SelectedItem.Duration}"/>
+                
+
+                <Label Content="Meal count:" Grid.Row="2" Grid.Column="0"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=MealListView,Path=SelectedItem.Count}"/>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="Button_Click_2" Grid.Row="2" Margin="10" Content="Check ingredient list"/>
+                <Button Grid.Column="1" Grid.Row="2" Margin="10" Click="Button_Click_3" Content="Check cooking order"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
